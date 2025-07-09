@@ -1,0 +1,96 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import AuthLayout from './layouts/AuthLayout';
+import DashboardLayout from './layouts/DashboardLayout';
+
+// Import all your pages
+import LoginPage from './pages/Auth/LoginPage';
+import SignupPage from './pages/Auth/SignupPage';
+import ForgotPasswordPage from './pages/Auth/ForgotPasswordPage';
+import LandingPage from './pages/Public/LandingPage';
+import AboutUsPage from './pages/Public/AboutUsPage';
+import PrivacyPolicyPage from './pages/Public/PrivacyPolicyPage';
+import TermsOfUsePage from './pages/Public/TermsOfUsePage';
+import RefundPolicyPage from './pages/Public/RefundPolicyPage';
+import DashboardHome from './pages/Dashboard/DashboardHome';
+import UserProfileSettingsPage from './pages/Dashboard/UserProfileSettingsPage';
+import SubjectsPage from './pages/Learning/SubjectsPage';
+import NotesPage from './pages/Learning/NotesPage';
+import McqsPage from './pages/Learning/McqsPage';
+import FlashcardsPage from './pages/Learning/FlashcardsPage';
+import PastPapersPage from './pages/Learning/PastPapersPage';
+import MockExamsPage from './pages/Learning/MockExamsPage';
+import UpgradePage from './pages/Payment/UpgradePage';
+import PaymentStatusPage from './pages/Payment/PaymentStatusPage';
+import AITeacherAssistantPage from './pages/AI/AITeacherAssistantPage';
+import ProgressPage from './pages/Progress/ProgressPage';
+import LeaderboardPage from './pages/Progress/LeaderboardPage';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import UserManagementPage from './pages/Admin/UserManagementPage';
+import PaymentVerificationPage from './pages/Admin/PaymentVerificationPage';
+import ContentManagementPage from './pages/Admin/ContentManagementPage';
+
+// Import route components
+import PrivateRoute from './routes/PrivateRoute';
+// import AdminRoute from './routes/AdminRoute'; // You will create this later for admin access control
+
+function App() {
+  return (
+    <Router>
+      <AuthProvider> {/* Provides authentication context to the entire app */}
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/about" element={<AboutUsPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms-of-use" element={<TermsOfUsePage />} />
+          <Route path="/refund-policy" element={<RefundPolicyPage />} />
+
+          {/* Auth Layout Routes */}
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          </Route>
+
+          {/* Private Routes (requires authentication) */}
+          <Route element={<PrivateRoute />}>
+            <Route element={<DashboardLayout />}>
+              <Route path="/dashboard" element={<DashboardHome />} />
+              <Route path="/profile" element={<UserProfileSettingsPage />} />
+              <Route path="/subjects" element={<SubjectsPage />} />
+              <Route path="/subjects/:subjectId/notes/:chapterId" element={<NotesPage />} />
+              <Route path="/subjects/:subjectId/mcqs/:chapterId" element={<McqsPage />} />
+              <Route path="/subjects/:subjectId/flashcards/:chapterId" element={<FlashcardsPage />} />
+              <Route path="/past-papers" element={<PastPapersPage />} />
+              <Route path="/mock-exams" element={<MockExamsPage />} />
+              <Route path="/upgrade" element={<UpgradePage />} />
+              <Route path="/payment-status" element={<PaymentStatusPage />} />
+              <Route path="/ai-tutor" element={<AITeacherAssistantPage />} />
+              <Route path="/progress" element={<ProgressPage />} />
+              <Route path="/leaderboard" element={<LeaderboardPage />} />
+            </Route>
+          </Route>
+
+          {/* Admin Routes (requires admin role) - Uncomment and implement AdminRoute later */}
+          {/*
+          <Route element={<AdminRoute />}>
+            <Route element={<AdminLayout />}> // You will create AdminLayout similar to DashboardLayout
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/users" element={<UserManagementPage />} />
+              <Route path="/admin/payments" element={<PaymentVerificationPage />} />
+              <Route path="/admin/content" element={<ContentManagementPage />} />
+            </Route>
+          </Route>
+          */}
+
+          {/* Fallback for unknown routes */}
+          <Route path="*" element={<div>404 Not Found</div>} />
+        </Routes>
+      </AuthProvider>
+    </Router>
+  );
+}
+
+export default App;
