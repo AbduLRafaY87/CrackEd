@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import AuthLayout from './layouts/AuthLayout';
 import DashboardLayout from './layouts/DashboardLayout';
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
 
 // Import all your pages
 import LoginPage from './pages/Auth/LoginPage';
@@ -10,9 +12,11 @@ import SignupPage from './pages/Auth/SignupPage';
 import ForgotPasswordPage from './pages/Auth/ForgotPasswordPage';
 import LandingPage from './pages/Public/LandingPage';
 import AboutUsPage from './pages/Public/AboutUsPage';
-import PrivacyPolicyPage from './pages/Public/PrivacyPolicyPage';
-import TermsOfUsePage from './pages/Public/TermsOfUsePage';
-import RefundPolicyPage from './pages/Public/RefundPolicyPage';
+import ContactPage from './pages/Public/ContactPage';
+import FeaturesPage from './pages/Public/FeaturesPage';
+import PrivacyPolicyPage from './pages/Public/Legal/PrivacyPolicyPage';
+import TermsOfUsePage from './pages/Public/Legal/TermsOfUsePage';
+import RefundPolicyPage from './pages/Public/Legal/RefundPolicyPage';
 import DashboardHome from './pages/Dashboard/DashboardHome';
 import UserProfileSettingsPage from './pages/Dashboard/UserProfileSettingsPage';
 import SubjectsPage from './pages/Learning/SubjectsPage';
@@ -33,19 +37,34 @@ import ContentManagementPage from './pages/Admin/ContentManagementPage';
 
 // Import route components
 import PrivateRoute from './routes/PrivateRoute';
+import HeaderTop from './components/common/HeaderTop';
 // import AdminRoute from './routes/AdminRoute'; // You will create this later for admin access control
+
+// PublicLayout wraps public pages with Header and Footer
+const PublicLayout = ({ children }) => (
+  <>
+    <HeaderTop/>
+    <Header />
+    <main>{children}</main>
+    <Footer />
+  </>
+);
 
 function App() {
   return (
     <Router>
       <AuthProvider> {/* Provides authentication context to the entire app */}
         <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/about" element={<AboutUsPage />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-          <Route path="/terms-of-use" element={<TermsOfUsePage />} />
-          <Route path="/refund-policy" element={<RefundPolicyPage />} />
+          {/* Public Routes with PublicLayout */}
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/about" element={<AboutUsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/features" element={<FeaturesPage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms-of-use" element={<TermsOfUsePage />} />
+            <Route path="/refund-policy" element={<RefundPolicyPage />} />
+          </Route>
 
           {/* Auth Layout Routes */}
           <Route element={<AuthLayout />}>
