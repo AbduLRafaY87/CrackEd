@@ -1,4 +1,5 @@
 import React from 'react';
+import FAQSection from '../../components/common/FAQSection';
 
 const LandingPage = () => {
   return (
@@ -6,6 +7,29 @@ const LandingPage = () => {
       <h1>Welcome to CrackEd LMS!</h1>
       <p>Your journey to success starts here.</p>
       {/* Add more marketing content */}
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <div id="faq-section">
+        <FAQSection/>
+      </div>
     </div>
   );
 };

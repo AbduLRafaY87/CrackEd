@@ -41,7 +41,7 @@ import { AuthProvider } from './contexts/AuthContext';
 // PublicLayout wraps public pages with Header and Footer and renders child routes via Outlet
 const PublicLayout = () => (
   <>
-    <HeaderTop />
+    {/* <HeaderTop /> */}
     <Header />
     <main>
       <Outlet />
